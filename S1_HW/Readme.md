@@ -6,10 +6,11 @@
 
 ## Пример работы программы
 
-`./filename-ext /home/robotomize/1.txt`
-
+```
+./filename-ext /home/robotomize/1.txt
 filename: 1
-extension: txt```
+extension: txt
+```
 
 ## Сборка
 
