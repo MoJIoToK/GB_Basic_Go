@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -17,11 +18,11 @@ func newCacheImpl() *cacheImpl {
 }
 
 type cacheImpl struct {
-	value map[string]string
+	items map[string]string
 }
 
 func (c *cacheImpl) Get(k string) (string, bool) {
-	item, ok := c.value[k]
+	item, ok := c.items[k]
 
 	if !ok {
 		return "", false
@@ -32,7 +33,17 @@ func (c *cacheImpl) Get(k string) (string, bool) {
 }
 
 func (c *cacheImpl) Set(k, v string) {
-	c.value[k] = v
+	c.items[k] = v
+}
+
+// Функция удаления элемента
+func (c *cacheImpl) Delete(key string) error {
+	if _, ok := c.items[key]; !ok {
+		return errors.New("Key not found!")
+	}
+
+	delete(c.items, key)
+	return nil
 }
 
 func newDbImpl(cache Cache) *dbImpl {
